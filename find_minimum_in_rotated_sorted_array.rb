@@ -51,8 +51,8 @@ def find_min(nums)
     # be smaller than the middle number, the beginning of the sorted array must be 
     # to the right. So we move the left pointer to mid + 1.
     #If the middle number is less than the last number,
-    # then we know the min must be the middle number or to the left, 
-    #so we move the right pointer to j.
+    # then we know the min must be the left or the middle number itself, 
+    #so we move the right pointer to mid.
 
     mid = (i + j) / 2
     if nums[mid] > nums[j]
