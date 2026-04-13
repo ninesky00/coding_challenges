@@ -1,0 +1,134 @@
+vertices - nodes, can be labeled or unlabled
+edges - arcs that connect two nodes, can be labeled or unlabeled
+
+null graph - no edges
+trivial graph - only 1 vertex
+undirected graph - nodes are unordered pairs in the definition of every edge, edges have no direction
+directed graph - edges have direction
+connected graph - one node can visit any node.
+disconnected graph - at leats one node is unreachable
+regular graph - degree of every vertex is equal to k is k regular graph, (as in number of edges per node?)
+compelte graph - each node there is an edge to each other node
+
+ways to store graph: 
+    Adjacency Matrix
+    Adjacency List
+
+https://media.geeksforgeeks.org/wp-content/uploads/20240502183320/adjacency_mat1-(1)-copy.webp
+
+Adjacency matrix implementation:
+
+def add_edge(mat, i, j):
+  
+    # Add an edge between two vertices
+    mat[i][j] = 1  # Graph is 
+    mat[j][i] = 1  # Undirected
+
+def display_matrix(mat):
+  
+    # Display the adjacency matrix
+    for row in mat:
+        print(" ".join(map(str, row)))  
+
+# Main function to run the program
+if __name__ == "__main__":
+    V = 4  # Number of vertices
+    mat = [[0] * V for _ in range(V)]  
+
+    # Add edges to the graph
+    add_edge(mat, 0, 1)
+    add_edge(mat, 0, 2)
+    add_edge(mat, 1, 2)
+    add_edge(mat, 2, 3)
+
+    # Optionally, initialize matrix directly
+    """
+    mat = [
+        [0, 1, 0, 0],
+        [1, 0, 1, 0],
+        [0, 1, 0, 1],
+        [0, 0, 1, 0]
+    ]
+    """
+
+    # Display adjacency matrix
+    print("Adjacency Matrix:")
+    display_matrix(mat)
+
+
+Adjacency List Representation of Graph:
+https://media.geeksforgeeks.org/wp-content/uploads/20200630125356/adjacency_list.jpg
+def add_edge(adj, i, j):
+    adj[i].append(j)
+    adj[j].append(i)  # Undirected
+
+def display_adj_list(adj):
+    for i in range(len(adj)):
+        print(f"{i}: ", end="")
+        for j in adj[i]:
+            print(j, end=" ")
+        print()
+
+# Create a graph with 4 vertices and no edges
+V = 4
+adj = [[] for _ in range(V)]
+
+# Now add edges one by one
+add_edge(adj, 0, 1)
+add_edge(adj, 0, 2)
+add_edge(adj, 1, 2)
+add_edge(adj, 2, 3)
+
+print("Adjacency List Representation:")
+display_adj_list(adj)
+
+When the graph contains a large number of edges then it is good to store it as a matrix because 
+only some entries in the matrix will be empty. An algorithm such as Prim’s and Dijkstra adjacency 
+matrix is used to have less complexity.
+
+
+** Disjoint Set **
+find(node) function - finds root node of a given vertex. 
+union(node) function - unions two vertices and makes their root nodes the same. 
+Quick find :
+
+
+** DFS **
+To traverse all vertices in a graph, often needs a auxilury data structure, a stack. Because we need to have the ability to return to the previous state.
+Stack has FILO and LIFO, using LIFO in a stack will bring us to the previous state. Alot of times we will not use a stack, but instead use recursion call stack.
+To travese nodes, move the node to the stack, remove the node from the stack, check if the node has been visited and mark the visited node. Find adjacent nodes, and put them 
+all into the stack, remove the top node from the stack, check if the node has been visited, mark the node. Add the adjacent node to the new node to stack. Rinse and repeat.
+
+
+def dfs_record(adj, visited, source):
+    visited[source] = True
+    print(source, end=" ")
+
+    for i in adj[source]:
+        if not visited[i]:
+            dfs_record(adj, visited, i)
+
+def dfs(adj, source):
+    visited = [False] * len(adj)
+    dfs_record(adj, visited, source)
+
+def add_edge(adj, source, t):
+    adj[s].append(t)
+
+
+
+definitions
+
+Vertex - nodes
+edge - connection between 2 nodes. 
+Path - node path from starting node to ending node.
+disjoint set - union-find data structure, to address connectivity
+parent node - the direct parent of a node
+root node - node with no parent or can be viewed as itself.
+
+
+
+BFS - most advantageous use it to find shortest path between 2 vertices where all edges have qual and positive weights
+BFS beats outs DFS in this scenario, dfs must traverse all paths between two vertices before finding the shortest one.
+uses queue to implement : the basic idea
+
